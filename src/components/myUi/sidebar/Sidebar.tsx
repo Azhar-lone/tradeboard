@@ -8,13 +8,21 @@ import useSidebar from "@/hooks/use-sidebar";
 import Hint from "../Hint";
 import { categorizedLinks, secondlinks } from "./sidebar-data";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useEffect } from "react";
+import { useDevice } from "@/hooks/use-device";
 const Sidebar: React.FC = () => {
   const { isOpen, setIsOpen } = useSidebar();
   const path = usePathname();
+  const device = useDevice();
 
+  useEffect(() => {
+    if (device == "laptop") {
+      setIsOpen(false);
+    }
+  }, [device, setIsOpen]);
   return (
     <div
-      className={` flex-col justify-between z-50 bg-background hidden lg:flex ${
+      className={` flex-col justify-between z-50 bg-background hidden md:flex ${
         isOpen ? "w-48" : "w-12"
       } fixed top-14 left-0 gap-1   h-[85vh]   py-3 border-r-2`}
       onDoubleClick={() => setIsOpen((prev) => !prev)}

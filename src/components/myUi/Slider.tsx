@@ -1,40 +1,28 @@
-import React from 'react'
+import React from "react";
 
-import {
-
-    PanelLeft,
-    PanelRight
-} from "lucide-react"
+import { PanelLeft, PanelRight } from "lucide-react";
 
 // importing components
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface SliderTypes {
-    children: React.ReactNode,
-    side: "left" | "top" | "bottom" | "right"
+  children: React.ReactNode;
+  side: "left" | "top" | "bottom" | "right";
 }
 
-const Slider: React.FC<SliderTypes> = ({
-    children,
-    side = "left"
-}) => {
-    return (
-        <Sheet>
-            <SheetTrigger asChild>
-                <Button size="icon" variant="outline" className="lg:hidden">
-                    {side === "left" ?
-                        <PanelLeft />
-                        : <PanelRight />
-                    }
-                    <span className="sr-only">Toggle Menu</span>
-                </Button>
-            </SheetTrigger>
-            <SheetContent side={side}>
-                {children}
-            </SheetContent>
-        </Sheet>
-    )
-}
+const Slider: React.FC<SliderTypes> = ({ children, side = "left" }) => {
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button size="icon" variant="outline" className="md:hidden">
+          {side === "left" ? <PanelLeft /> : <PanelRight />}
+          <span className="sr-only">Toggle Menu</span>
+        </Button>
+      </SheetTrigger>
+      <SheetContent side={side}>{children}</SheetContent>
+    </Sheet>
+  );
+};
 
-export default Slider
+export default Slider;

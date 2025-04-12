@@ -4,7 +4,7 @@ import * as React from "react";
 import { MoonStar, Sun, PcCaseIcon, LucideIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import Hint from "./Hint";
-
+import { cn } from "@/lib/utils";
 type themeType = {
   icon: LucideIcon;
   text: string;
@@ -16,7 +16,7 @@ const themes: themeType[] = [
   { text: "dark", icon: MoonStar },
 ];
 
-export function ModeToggle() {
+export function ModeToggle({ className }: { className?: string }) {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
@@ -27,7 +27,7 @@ export function ModeToggle() {
   if (!mounted) return null; // Render nothing until the component is mounted
 
   return (
-    <div className="flex  border h-8 rounded-full">
+    <div className={cn("flex  border h-8 rounded-full", className)}>
       {themes.map((mtheme, index) => (
         <Hint key={index} label={mtheme.text}>
           <mtheme.icon

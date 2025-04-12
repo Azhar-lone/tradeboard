@@ -19,7 +19,7 @@ const Header = () => {
   const { isOpen, setIsOpen } = useSidebar();
   const device = useDevice();
   const path = usePathname();
-  
+
   useEffect(() => {
     if (device == "tablet") {
       setIsOpen(true);
@@ -28,19 +28,17 @@ const Header = () => {
 
   return (
     <nav className="flex items-center justify-between border-b-2 px-6 py-2 w-[100%] sticky backdrop-blur z-50 top-0 gap-5">
-      <div className="flex gap-3 items-center justify-between flex-row-reverse lg:flex-row lg:w-fit w-full">
-   
-
+      <div className="flex gap-3 items-center justify-between flex-row-reverse md:flex-row lg:w-fit w-full">
         <Hint label={isOpen ? "close" : "open"}>
           {isOpen ? (
             <SidebarCloseIcon
               onClick={() => setIsOpen((prev) => !prev)}
-              className="hidden lg:block"
+              className="hidden md:block"
             />
           ) : (
             <SidebarOpenIcon
               onClick={() => setIsOpen((prev) => !prev)}
-              className="hidden lg:block"
+              className="hidden md:block"
             />
           )}
         </Hint>
@@ -56,7 +54,7 @@ const Header = () => {
       </div>
       <ul className=" gap-3 items-center  flex ">
         <div className="lg:flex hidden ">
-        <ModeToggle />
+          <ModeToggle />
         </div>
         <Notifications />
 
@@ -64,63 +62,63 @@ const Header = () => {
       </ul>
 
       <Slider side="right">
-          <div
-            onDoubleClick={() => setIsOpen((prev) => !prev)}
-            className="lg:hidden"
-          >
-            <ScrollArea className="h-full w-full overflow-auto"> {/* Added fixed height */}
-              <div className="pr-4"> {/* Add some padding to prevent content from touching scrollbar */}
-                {categorizedLinks.map((items, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col justify-center gap-3 w-full mx-auto"
-                  >
-                    {items.category && (
-                      <h1 className="text-md font-bold p-2">{items.category}</h1>
-                    )}
-                    {items.links.map(({ Icon, href, text }, index) => (
-                      <Link
-                        href={href}
-                        key={index}
-                        className={`flex gap-2 p-2 ${
-                          path === href && "ml-1 border-l-4 p-1 border-primary"
-                        }`}
-                      >
-                        <Hint label={text}>
-                          <Icon />
-                        </Hint>
-                        <h3>{text}</h3>
-                      </Link>
-                    ))}
-                  </div>
-                ))}
-              </div>
-
-              <div className="border-t-2 pr-4"> {/* Added padding here too */}
-                {secondlinks.map((link, index) => (
-                  <Link
-                    href={link.href}
-                    key={index}
-                    className={`flex gap-2 p-2 ${
-                      path === link.href &&
-                      "ml-1 text-primary p-1 border-primary"
-                    }`}
-                  >
-                    <Hint label={link.text}>
-                      <link.Icon />
-                    </Hint>
-                    {isOpen && <h3>{link.text}</h3>}
-                  </Link>
-                ))}
-              </div>
-        <ModeToggle />
-
-            </ScrollArea>
-
-          </div>
-        </Slider>
-
-
+        <div
+          onDoubleClick={() => setIsOpen((prev) => !prev)}
+          className="md:hidden mt-2"
+        >
+          <ScrollArea className="h-[90vh] w-full overflow-auto">
+            {" "}
+            {/* Added fixed height */}
+            <div className="pr-4">
+              {" "}
+              {/* Add some padding to prevent content from touching scrollbar */}
+              {categorizedLinks.map((items, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col justify-center gap-3 w-full mx-auto"
+                >
+                  {items.category && (
+                    <h1 className="text-md font-bold p-2">{items.category}</h1>
+                  )}
+                  {items.links.map(({ Icon, href, text }, index) => (
+                    <Link
+                      href={href}
+                      key={index}
+                      className={`flex gap-2 p-2 ${
+                        path === href && "ml-1 border-l-4 p-1 border-primary"
+                      }`}
+                    >
+                      <Hint label={text}>
+                        <Icon />
+                      </Hint>
+                      <h3>{text}</h3>
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="border-t-2 pr-4">
+              {" "}
+              {/* Added padding here too */}
+              {secondlinks.map((link, index) => (
+                <Link
+                  href={link.href}
+                  key={index}
+                  className={`flex gap-2 p-2 ${
+                    path === link.href && "ml-1 text-primary p-1 border-primary"
+                  }`}
+                >
+                  <Hint label={link.text}>
+                    <link.Icon />
+                  </Hint>
+                  {isOpen && <h3>{link.text}</h3>}
+                </Link>
+              ))}
+            </div>
+            <ModeToggle className="w-fit" />
+          </ScrollArea>
+        </div>
+      </Slider>
     </nav>
   );
 };
