@@ -1,7 +1,16 @@
 import React from "react";
+import { AreaComponent } from "@/components/myUi/charts/area-chart";
+import { PieComponent } from "@/components/myUi/charts/pie-chart";
 
-const page = () => {
-  return <div>page</div>;
+const Dashboard = () => {
+  return (
+    <>
+      <AreaComponent
+      
+      />
+      <PieComponent />
+    </>
+  );
 };
 
-export default page;
+export default Dashboard;

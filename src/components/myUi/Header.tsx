@@ -53,7 +53,7 @@ const Header = () => {
         </Link>
       </div>
       <ul className=" gap-3 items-center  flex ">
-        <div className="lg:flex hidden ">
+        <div className="md:flex hidden ">
           <ModeToggle />
         </div>
         <Notifications />
