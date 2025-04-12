@@ -12,7 +12,7 @@ const initialState: sideContextState = {
     setIsOpen: () => {}, 
 };
 
-let sideContext = createContext<sideContextState>(initialState);
+const sideContext = createContext<sideContextState>(initialState);
 
 export default function useSidebar() {
     return useContext(sideContext);

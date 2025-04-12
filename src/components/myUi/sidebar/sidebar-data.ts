@@ -35,7 +35,7 @@ export const secondlinks: Links[] = [
   },
 ];
 
-let categorizedLinks: CategorizedLinks[] = [
+const categorizedLinks: CategorizedLinks[] = [
   {
     category: "Overview",
     links: [

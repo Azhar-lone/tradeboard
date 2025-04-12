@@ -5,7 +5,7 @@ import {
 
 interface HintPropsTypes {
   children: React.ReactNode;
-  label: String;
+  label: string;
   asChild?: boolean;
   side?: "left" | "right" | "top" | "bottom";
   align?: "start" | "center" | "end"

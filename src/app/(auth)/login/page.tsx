@@ -26,7 +26,7 @@ import { ModeToggle } from "@/components/myUi/mode-toggle";
 
 const Login = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -37,7 +37,9 @@ const Login = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof loginSchema>) {}
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    console.log(values);
+  }
 
   return (
     <div className="md:w-[60%] w-[100%] mx-auto p-5 flex flex-col gap-5  bg-background shadow-2xl shadow-primary mt-[5vh] animate-accordion-down ">
@@ -90,13 +92,13 @@ const Login = () => {
 
           <div className="flex justify-between w-[100%]">
             <p></p>
-            {!isLoading ? (
-              <Button type="submit" className="md:ml-[10%] ml-[30%]">
-                Login{" "}
-              </Button>
-            ) : (
+            {/* {!isLoading ? ( */}
+            <Button type="submit" className="md:ml-[10%] ml-[30%]">
+              Login{" "}
+            </Button>
+            {/* ) : (
               <Button>Loggin In ...</Button>
-            )}
+            )} */}
 
             <Button
               variant="ghost"
