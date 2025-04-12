@@ -68,7 +68,7 @@ const Header = () => {
             onDoubleClick={() => setIsOpen((prev) => !prev)}
             className="lg:hidden"
           >
-            <ScrollArea className="h-[90vh] w-full overflow-auto"> {/* Added fixed height */}
+            <ScrollArea className="h-full w-full overflow-auto"> {/* Added fixed height */}
               <div className="pr-4"> {/* Add some padding to prevent content from touching scrollbar */}
                 {categorizedLinks.map((items, index) => (
                   <div
@@ -113,8 +113,9 @@ const Header = () => {
                   </Link>
                 ))}
               </div>
-            </ScrollArea>
         <ModeToggle />
+
+            </ScrollArea>
 
           </div>
         </Slider>
