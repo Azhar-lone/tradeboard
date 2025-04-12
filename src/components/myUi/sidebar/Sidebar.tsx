@@ -7,7 +7,7 @@ import useSidebar from "@/hooks/use-sidebar";
 // custom
 import Hint from "../Hint";
 import { categorizedLinks, secondlinks } from "./sidebar-data";
-
+import { ScrollArea } from "@/components/ui/scroll-area";
 const Sidebar: React.FC = () => {
   const { isOpen, setIsOpen } = useSidebar();
   const path = usePathname();
@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
       } fixed top-14 left-0 gap-1   h-[85vh]   py-3 border-r-2`}
       onDoubleClick={() => setIsOpen((prev) => !prev)}
     >
-      <div className="overflow-y-auto w-full  ">
+      <ScrollArea className="overflow-y-auto w-full  ">
         {categorizedLinks.map((items, index) => (
           <div
             key={index}
@@ -44,7 +44,7 @@ const Sidebar: React.FC = () => {
             ))}
           </div>
         ))}
-      </div>
+      </ScrollArea>
 
       <div className="border-t-2">
         {secondlinks.map((link, index) => (

@@ -12,17 +12,19 @@ import { buttonVariants } from "../ui/button";
 import { useDevice } from "@/hooks/use-device";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import Slider from "./Slider";
 import { categorizedLinks, secondlinks } from "./sidebar/sidebar-data";
 
 const Header = () => {
-  // const path = usePathname();
   const { isOpen, setIsOpen } = useSidebar();
   const device = useDevice();
   const path = usePathname();
-  if (device == "tablet") {
-    setIsOpen(true);
-  }
+  useEffect(() => {
+    if (device == "tablet") {
+      setIsOpen(true);
+    }
+  }, [device, setIsOpen]);
   return (
     <nav className="flex items-center justify-between border-b-2 px-6 py-2 w-[100%] sticky  backdrop-blur z-50 top-0 gap-5  ">
       <div className="flex gap-3 items-center justify-between flex-row-reverse lg:flex-row lg:w-fit w-full">
