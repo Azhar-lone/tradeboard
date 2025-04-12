@@ -1,15 +1,18 @@
 import {
   LayoutDashboardIcon,
-  BookCheckIcon,
+  PackageIcon,
+  FileTextIcon,
+  WarehouseIcon,
+  CreditCardIcon,
+  LineChartIcon,
+  XCircleIcon,
+  AlarmClockIcon,
+  Undo2Icon,
   CalendarCheck2Icon,
+  ClipboardListIcon,
+  TruckIcon,
+  ListOrderedIcon,
   SettingsIcon,
-  ClipboardIcon,
-  SwatchBookIcon,
-  ListChecksIcon,
-  SheetIcon,
-  GraduationCapIcon,
-  Users2Icon,
-  CheckSquareIcon,
   LucideIcon,
 } from "lucide-react";
 
@@ -26,7 +29,7 @@ export interface CategorizedLinks {
 
 export const secondlinks: Links[] = [
   {
-    href: "/site/settings",
+    href: "/settings",
     Icon: SettingsIcon,
     text: "Settings",
   },
@@ -34,131 +37,95 @@ export const secondlinks: Links[] = [
 
 let categorizedLinks: CategorizedLinks[] = [
   {
-    category: "Main",
+    category: "Overview",
     links: [
       {
-        href: "/site",
+        href: "/dashboard",
         text: "Dashboard",
         Icon: LayoutDashboardIcon,
       },
-
       {
-        href: "/site/courses",
-        text: "Courses",
-        Icon: BookCheckIcon,
+        href: "/items",
+        text: "Items / SKUs",
+        Icon: PackageIcon,
       },
-
+    ],
+  },
+  {
+    category: "Stock Management",
+    links: [
       {
-        href: "/site/sessions",
-        text: "Sessions",
+        href: "/stock/new",
+        text: "New Stock",
+        Icon: WarehouseIcon,
+      },
+      {
+        href: "/stock/current",
+        text: "Current Stock",
+        Icon: ClipboardListIcon,
+      },
+      {
+        href: "/stock/damaged",
+        text: "Damaged Stock",
+        Icon: XCircleIcon,
+      },
+      {
+        href: "/stock/expired",
+        text: "Expired Stock",
+        Icon: AlarmClockIcon,
+      },
+      {
+        href: "/stock/returned",
+        text: "Returned Stock",
+        Icon: Undo2Icon,
+      },
+    ],
+  },
+  {
+    category: "Sales & Invoicing",
+    links: [
+      {
+        href: "/sales/customer-invoices",
+        text: "Customer Invoices",
+        Icon: FileTextIcon,
+      },
+      {
+        href: "/sales/monthly",
+        text: "Monthly Sales",
         Icon: CalendarCheck2Icon,
       },
-    ],
-  },
-];
-
-const categorizedLinks_admin: CategorizedLinks[] = [
-  {
-    category: "Administration",
-    links: [
       {
-        href: "/site/programs",
-        text: "Programs",
-        Icon: GraduationCapIcon,
+        href: "/sales/sku-wise",
+        text: "SKU-wise Sales",
+        Icon: ListOrderedIcon,
       },
       {
-        href: "/site/users",
-        text: "Users",
-        Icon: Users2Icon,
-      },
-    ],
-  },
-];
-const categorizedLinks_teacher: CategorizedLinks[] = [
-  {
-    category: "Classes",
-    links: [
-      {
-        href: "/attendence",
-        text: "Attendence",
-        Icon: CheckSquareIcon,
-      },
-      {
-        href: "/site/assignments",
-        text: "Assignments",
-        Icon: ListChecksIcon,
+        href: "/sales/report",
+        text: "Sales Report",
+        Icon: LineChartIcon,
       },
     ],
   },
   {
-    category: "Examination",
+    category: "Finance",
     links: [
       {
-        href: "/site/exams/quizes",
-        text: "Quizzes",
-        Icon: ClipboardIcon,
-      },
-      {
-        href: "/site/exams/oht",
-        text: "OHT",
-        Icon: SwatchBookIcon,
+        href: "/finance/ledger",
+        text: "Ledger",
+        Icon: CreditCardIcon,
       },
     ],
   },
   {
+    category: "Logistics",
     links: [
       {
-        href: "/site/results",
-        text: "Results",
-        Icon: SheetIcon,
+        href: "/logistics/van-load-sheet",
+        text: "Van Load Sheet",
+        Icon: TruckIcon,
       },
     ],
   },
 ];
-
-const categorizedLinks_student: CategorizedLinks[] = [
-  {
-    category: "Examination",
-    links: [
-      {
-        href: "/site/exams/quizes",
-        text: "Quizzes",
-        Icon: ClipboardIcon,
-      },
-      {
-        href: "/site/exams/oht",
-        text: "OHT",
-        Icon: SwatchBookIcon,
-      },
-    ],
-  },
-  {
-    links: [
-      {
-        href: "/site/results",
-        text: "Results",
-        Icon: SheetIcon,
-      },
-    ],
-  },
-  {
-    links: [
-      {
-        href: "/site/assignments",
-        text: "Assignments",
-        Icon: ListChecksIcon,
-      },
-    ],
-  },
-];
-
-let role = "admin";
-
-if (role === "admin")
-  categorizedLinks = categorizedLinks.concat(categorizedLinks_admin);
-else if (role === "teacher")
-  categorizedLinks = categorizedLinks.concat(categorizedLinks_teacher);
-else if (role === "student")
-  categorizedLinks = categorizedLinks.concat(categorizedLinks_student);
 
 export { categorizedLinks };

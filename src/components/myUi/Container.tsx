@@ -15,7 +15,7 @@ const Container: React.FC<ContainerProps> = ({ children, className }) => {
   return (
 
     <ScrollArea
-      className={cn(className, `${isOpen ? "sm:ml-36" : "sm:ml-12"}  p-2 overflow-y-auto h-[100vh] `)}
+      className={cn(className, `${isOpen ? "sm:ml-48" : "sm:ml-12"}  p-2 overflow-y-auto h-[100vh] `)}
     >
       {children}
     </ScrollArea>
