@@ -1,11 +1,10 @@
-"use client"
+"use client";
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { routes } from "@/constants/routes";
 // Icons
 import { Eye, EyeOff } from "lucide-react";
 
@@ -30,8 +29,6 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-
-
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -40,9 +37,7 @@ const Login = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof loginSchema>) {
-
-  }
+  async function onSubmit(values: z.infer<typeof loginSchema>) {}
 
   return (
     <div className="md:w-[60%] w-[100%] mx-auto p-5 flex flex-col gap-5  bg-background shadow-2xl shadow-primary mt-[5vh] animate-accordion-down ">
@@ -100,29 +95,18 @@ const Login = () => {
                 Login{" "}
               </Button>
             ) : (
-              <Button>
-                Loggin In ...
-              </Button>
+              <Button>Loggin In ...</Button>
             )}
 
             <Button
               variant="ghost"
-              onClick={() =>
-                router.push("/auth/forget-password")
-              }
+              onClick={() => router.push(routes.forgotPassword)}
             >
               Forgot Password
             </Button>
           </div>
         </form>
       </Form>
-
-      <div>
-        did'nt have an account
-        <Link href={"/auth/sign-in"} className="text-blue-500 p-2 hover:text-blue-400">
-          SignUp
-        </Link>
-      </div>
     </div>
   );
 };

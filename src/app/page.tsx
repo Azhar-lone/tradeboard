@@ -9,7 +9,7 @@ export default function Home() {
       Go to Site
     </Link>
 
-    <Link href={"/auth/login"} >
+    <Link href={"/login"} >
       Go to Login
     </Link>
   </div>
