@@ -7,7 +7,7 @@ import Hint from "./Hint";
 import {
   SidebarOpenIcon,
   SidebarCloseIcon,
-  MicroscopeIcon
+  ServerIcon
 } from "lucide-react"
 import Link from "next/link";
 import useSidebar from "@/hooks/use-sidebar";
@@ -29,8 +29,8 @@ const Header = () => {
         <Link className={buttonVariants({
           variant: "outline"
         })} href={"/site"}>
-          <MicroscopeIcon />
-          website Name
+          <ServerIcon />
+          TradeBoard
         </Link>
 
       </div>
