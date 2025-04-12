@@ -22,7 +22,7 @@ const Slider: React.FC<SliderTypes> = ({
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button size="icon" variant="outline" className="sm:hidden">
+                <Button size="icon" variant="outline" className="lg:hidden">
                     {side === "left" ?
                         <PanelLeft />
                         : <PanelRight />
