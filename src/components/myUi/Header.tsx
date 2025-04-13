@@ -111,7 +111,7 @@ const Header = () => {
                   <Hint label={link.text}>
                     <link.Icon />
                   </Hint>
-                  {isOpen && <h3>{link.text}</h3>}
+                  <h3>{link.text}</h3>
                 </Link>
               ))}
             </div>

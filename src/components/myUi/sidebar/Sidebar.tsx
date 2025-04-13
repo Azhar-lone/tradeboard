@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
                 href={href}
                 key={index}
                 className={`flex gap-2 p-2 ${
-                  path === href && "ml-1 border-l-4  p-1 border-primary"
+                  path === href && "ml-1 border-l-4  p-1 border-pink-400"
                 }`}
               >
                 <Hint label={text}>
