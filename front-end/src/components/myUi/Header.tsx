@@ -43,7 +43,7 @@ const Header = () => {
       if (index < btnvariant.length - 1) index++;
       else index = 0;
     }, 3000);
-  }, []);
+  }, [btnvariant]);
 
   return (
     <nav className="flex items-center justify-between border-b-2 px-6 py-2 w-[100%] sticky backdrop-blur z-50 top-0 gap-5">
