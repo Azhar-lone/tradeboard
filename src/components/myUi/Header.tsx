@@ -44,7 +44,6 @@ const Header = () => {
         </Hint>
         <Link
           className={buttonVariants({
-            variant: "outline",
           })}
           href={"/site"}
         >
