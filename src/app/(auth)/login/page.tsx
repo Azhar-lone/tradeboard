@@ -109,6 +109,10 @@ const Login = () => {
           </div>
         </form>
       </Form>
+
+      <Button variant="link" onClick={() => router.push("/dashboard")}>
+        go to Dashboard (for testing only)
+      </Button>
     </div>
   );
 };

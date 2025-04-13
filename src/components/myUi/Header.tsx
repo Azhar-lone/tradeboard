@@ -11,7 +11,7 @@ import { buttonVariants } from "../ui/button";
 import { useDevice } from "@/hooks/use-device";
 import { ScrollArea } from "@radix-ui/react-scroll-area"; // Make sure to import ScrollAreaRoot if needed
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Slider from "./Slider";
 import { categorizedLinks, secondlinks } from "./sidebar/sidebar-data";
 
@@ -19,12 +19,31 @@ const Header = () => {
   const { isOpen, setIsOpen } = useSidebar();
   const device = useDevice();
   const path = usePathname();
+  const btnvariant = [
+    "default",
+    "ghost",
+    "destructive",
+    "secondary",
+    "outline",
+  ] as const;
+  type Variant = (typeof btnvariant)[number];
+  const [logoVariant, setLogoVariant] = useState<Variant>("default");
 
   useEffect(() => {
     if (device == "tablet") {
       setIsOpen(true);
     }
   }, [device, setIsOpen]);
+
+  useEffect(() => {
+    let index = 1;
+
+    setInterval(() => {
+      setLogoVariant(btnvariant[index]);
+      if (index < btnvariant.length - 1) index++;
+      else index = 0;
+    }, 3000);
+  }, []);
 
   return (
     <nav className="flex items-center justify-between border-b-2 px-6 py-2 w-[100%] sticky backdrop-blur z-50 top-0 gap-5">
@@ -43,9 +62,8 @@ const Header = () => {
           )}
         </Hint>
         <Link
-          className={buttonVariants({
-          })}
-          href={"/site"}
+          className={buttonVariants({ variant: logoVariant })}
+          href={"/dashboard"}
         >
           <ServerIcon />
           TradeBoard
