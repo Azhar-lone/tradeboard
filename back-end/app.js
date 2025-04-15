@@ -1,13 +1,12 @@
 //importing dependencies
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import userRouter from './src/User/router.js';
+
+import { checkPrismaConnection } from './libs/connectdb.js';
 
 import 'dotenv/config';
 //importing Routers
-
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
 
 const app = express();
 app.use(express.json());
@@ -17,10 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.send('Hello, Prisma!');
-});
-
+app.use('', userRouter);
 //404 page
 app.use((req, res) => {
   try {
@@ -38,12 +34,3 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
   checkPrismaConnection();
 });
-
-async function checkPrismaConnection() {
-  try {
-    await prisma.$connect();
-    console.log('Connected to the database');
-  } catch (error) {
-    console.error('Error connecting to the database:', error);
-  }
-}
