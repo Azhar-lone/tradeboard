@@ -1,12 +1,15 @@
 //importing dependencies
-import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
+
 import 'dotenv/config';
-import rateLimit from 'express-rate-limit';
 //importing Routers
-import userRouter from './Server/routes/userRoutes.js';
 
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
@@ -14,26 +17,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-
-// Rate limiter
-app.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-  }),
-);
-
-//Routers
-const baseUrl = process.env.BaseUrl;
-app.use(baseUrl + '/users', userRouter);
-app.use(baseUrl + '/products', productRouter);
-app.use(baseUrl + '/general', generalRouter);
-app.use(baseUrl + '/blogs', blogRouter);
-app.use(baseUrl + '/reviews', reviewRouter);
-
-// Catch-all handler to serve index.html for React routing
-app.get('*', (req, res) => {
-  res.sendFile(path.join(uiPath, 'index.html'));
+app.get('/', (req, res) => {
+  res.send('Hello, Prisma!');
 });
 
 //404 page
@@ -48,3 +33,17 @@ app.use((req, res) => {
     });
   }
 });
+const port = process.env.PORT | 3000;
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+  checkPrismaConnection();
+});
+
+async function checkPrismaConnection() {
+  try {
+    await prisma.$connect();
+    console.log('Connected to the database');
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
+}
