@@ -24,7 +24,7 @@ const Sidebar: React.FC = () => {
     <div
       className={` flex-col justify-between z-50 bg-background hidden md:flex ${
         isOpen ? "w-48" : "w-12"
-      } fixed top-14 left-0 gap-1   h-[85vh]   py-3 border-r-2`}
+      } fixed top-14 left-0 gap-1   h-[90vh]   py-3 border-r-2`}
       onDoubleClick={() => setIsOpen((prev) => !prev)}
     >
       <ScrollArea className="overflow-y-auto w-full  ">

@@ -47,7 +47,7 @@ const Header = () => {
 
   return (
     <nav className="flex items-center justify-between border-b-2 px-6 py-2 w-[100%] sticky backdrop-blur z-50 top-0 gap-5">
-      <div className="flex gap-3 items-center justify-between flex-row-reverse md:flex-row lg:w-fit w-full">
+      <div className="flex gap-3 items-center justify-between flex-row-reverse md:flex-row md:w-fit w-full">
         <Hint label={isOpen ? "close" : "open"}>
           {isOpen ? (
             <SidebarCloseIcon
