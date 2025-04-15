@@ -1,0 +1,14 @@
+model Item {
+  id        String   @id @default(cuid())
+  name      String
+  sku       String   @unique
+  price     Float
+  tradeOffer String?
+  scheme     String?
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id])
+
+  invoiceItems InvoiceItem[]
+  stockDetails StockItem[]
+  sales        SaleItem[]
+}
