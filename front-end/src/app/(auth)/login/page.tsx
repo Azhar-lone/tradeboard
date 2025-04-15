@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { routes } from "@/constants/routes";
+import Hint from "@/components/myUi/Hint";
+
 // Icons
 import { Eye, EyeOff } from "lucide-react";
 
@@ -42,7 +44,7 @@ const Login = () => {
   }
 
   return (
-    <div className="md:w-[60%] w-[100%] mx-auto p-5 flex flex-col gap-5  bg-background shadow-2xl shadow-primary mt-[5vh] animate-accordion-down ">
+    <div className="md:w-[60%] w-[100%] mx-auto p-5 flex flex-col gap-5  bg-background md:shadow-2xl  shadow-primary mt-[5vh] animate-accordion-down ">
       <div className="w-fit">
         <ModeToggle />
       </div>
@@ -79,11 +81,16 @@ const Login = () => {
                     type={!showPassword ? "password" : "text"}
                   />
                 </FormControl>
+
                 <div
                   onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-3 top-8"
+                  className="absolute right-3 top-7"
                 >
-                  {!showPassword ? <Eye /> : <EyeOff />}
+                  <Hint
+                    label={!showPassword ? "Show Password" : "Hide Password"}
+                  >
+                    {!showPassword ? <Eye /> : <EyeOff />}
+                  </Hint>
                 </div>
                 <FormMessage />
               </FormItem>
