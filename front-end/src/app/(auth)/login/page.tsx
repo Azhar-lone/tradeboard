@@ -60,7 +60,9 @@ const Login = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder={"YourEmail@domain.com"} {...field} />
+                  <Input placeholder={"YourEmail@domain.com"} {...field} 
+                    className="py-6 "
+                    />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -79,12 +81,13 @@ const Login = () => {
                     placeholder="*********"
                     {...field}
                     type={!showPassword ? "password" : "text"}
+                    className="py-6 "
                   />
                 </FormControl>
 
                 <div
                   onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-3 top-7"
+                  className="absolute right-3 top-8"
                 >
                   <Hint
                     label={!showPassword ? "Show Password" : "Hide Password"}
