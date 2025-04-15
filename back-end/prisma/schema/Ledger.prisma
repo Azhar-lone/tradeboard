@@ -1,0 +1,10 @@
+model Ledger {
+  id         String   @id @default(cuid())
+  type       String   // credit / debit
+  amount     Float
+  createdAt  DateTime @default(now())
+  description String?
+
+  companyId  String
+  company    Company  @relation(fields: [companyId], references: [id])
+}

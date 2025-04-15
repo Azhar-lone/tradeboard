@@ -1,0 +1,13 @@
+model Company {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  users    User[]
+  items    Item[]
+  invoices Invoice[]
+  ledgers  Ledger[]
+  stocks   Stock[]
+  sales    Sale[]
+  VanLoad  VanLoad[]
+}

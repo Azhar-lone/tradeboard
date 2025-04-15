@@ -1,0 +1,9 @@
+model StockItem {
+  id        String   @id @default(cuid())
+  itemId    String
+  stockId   String
+  quantity  Int
+
+  item      Item     @relation(fields: [itemId], references: [id])
+  stock     Stock    @relation(fields: [stockId], references: [id])
+}

@@ -1,0 +1,12 @@
+model Invoice {
+  id         String   @id @default(cuid())
+  invoiceNo  String
+  invoiceDate DateTime
+  bultiNo    String
+  vehicleNo  String
+
+  companyId  String
+  company    Company  @relation(fields: [companyId], references: [id])
+
+  invoiceItems InvoiceItem[]
+}
