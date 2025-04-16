@@ -1,44 +1,36 @@
-# === Node ===
+# Node modules
 node_modules/
-**/node_modules/
 
-# === Logs ===
+# Turbo cache (generated during dev builds)
+.turbo/
+
+# Logs
+*.log
+logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# === OS/Editor Files ===
+# Build output (Next.js build outputs and others)
+.next/
+out/
+dist/
+
+# OS-specific files
 .DS_Store
-*.pem
+Thumbs.db
 
-# === Env Files ===
-.env*
-*.tsbuildinfo
-
-# === Vercel ===
-.vercel/
-front-end/.vercel/
-
-# === Yarn Berry ===
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# === Front-end (Next.js) ===
-front-end/.next/
-front-end/out/
-front-end/coverage/
-front-end/next-env.d.ts
-front-end/build/
-
-# === Back-end (NestJS) ===
-back-end/dist/
-back-end/coverage/
-back-end/build/
-
-# === Optional: VSCode settings (if you want to ignore) ===
+# IDE or editor-specific files
 .vscode/
+.idea/
+*.swp
+
+# Environment variable files
+.env
+.env.local
+.env.*.local
+
+# Miscellaneous files
+.cache/
+.eslintcache
