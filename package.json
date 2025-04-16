@@ -1,0 +1,26 @@
+{
+  "name": "tradeboard",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@10.5.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Azhar-lone/tradeboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azhar-lone/tradeboard/issues"
+  },
+  "homepage": "https://github.com/Azhar-lone/tradeboard#readme"
+}
