@@ -1,9 +1,10 @@
 //importing dependencies
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import userRouter from './src/User/router.js';
+import userRouter from './src/routes/user.js';
+import { checkPrismaConnection } from './src/libs/connectdb.js';
 
-import { checkPrismaConnection } from './libs/connectdb.js';
+
 
 import 'dotenv/config';
 //importing Routers

@@ -3,16 +3,11 @@ import express from 'express';
 import {
   // For All
   login,
-} from './controller';
+} from '../Controllers/controller.js';
 
 const userRouter = express.Router({ strict: true });
 
 // Public routes=For All
-userRouter.post(
-  '/login',
-  verifyPassword,
-  login,
-); //done
+userRouter.post('/login', verifyPassword, login); //done
 
-
-export default userRouter
+export default userRouter;

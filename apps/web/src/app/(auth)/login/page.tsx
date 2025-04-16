@@ -60,9 +60,11 @@ const Login = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder={"YourEmail@domain.com"} {...field} 
+                  <Input
+                    placeholder={"YourEmail@domain.com"}
+                    {...field}
                     className="py-6 "
-                    />
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
