@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { prisma } from '../libs/connectdb.js';
 const { sign, verify } = jwt;
+
 export function createToken(id) {
   let token = sign({ id }, process.env.UserSecretKey, { expiresIn: '30d' });
   return token;
@@ -35,22 +36,19 @@ export function UserAuth(req, res, next) {
   }
 }
 
-// this functions check if provided otp is correct or not
-
 // this function checks provided password is correct or not
 export async function verifyPassword(req, res, next) {
   try {
     // Extract email and password from the request body
     const { email, password } = req.body;
 
-    // Find user by email or phoneNumber and select password
-    // dont select id
     // let user = await userModel.findOne({ email }).select("password userName");
     let user = await prisma.user.findUnique({
       where: { email },
       select: {
         password: true,
         userName: true,
+        id: true,
       },
     });
 
@@ -60,8 +58,11 @@ export async function verifyPassword(req, res, next) {
         msg: 'User not found',
       });
     }
+    console.log('User :', user);
+
     // Compare the provided password with the hashed password in the database
-    const isMatched = await bcrypt.compare(password, user.password);
+    // const isMatched = await bcrypt.compare(password, user.password);
+    const isMatched = user.password === password;
 
     // If passwords don't match, return a 401 Unauthorized response
     if (!isMatched) {
@@ -84,13 +85,3 @@ export async function verifyPassword(req, res, next) {
     });
   }
 }
-
-// users have access to website but can't buy or review product
-
-// buyers can do all things that users can do and
-//can buy and review product but can't sell,
-
-// sellers can do all things that buyers can do and
-//can sell products but can't administrate website
-
-// admins are admins of website that's it

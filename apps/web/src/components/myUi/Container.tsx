@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import React from "react";
 import { cn } from "@/lib/utils";
 import useSidebar from "@/hooks/use-sidebar";
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -10,12 +10,13 @@ interface ContainerProps {
 }
 
 const Container: React.FC<ContainerProps> = ({ children, className }) => {
-
-  const { isOpen } = useSidebar()
+  const { isOpen } = useSidebar();
   return (
-
     <ScrollArea
-      className={cn(className, `${isOpen ? "sm:ml-48" : "sm:ml-12"}  p-2 overflow-y-auto h-[100vh] `)}
+      className={cn(
+        className,
+        `${isOpen ? "md:ml-48" : "md:ml-12"}  p-2 overflow-y-auto h-[100vh] `
+      )}
     >
       {children}
     </ScrollArea>
