@@ -1,13 +1,19 @@
 import express from 'express';
 
-import {
-  // For All
-  login,
-} from '../Controllers/controller.js';
+import { login } from '../Controllers/user.js';
+import { verifyPassword } from '../middlewares/auth.js';
+import { validationError } from '../middlewares/validator.js';
+import { loginValidation } from '../validators/user.js';
 
 const userRouter = express.Router({ strict: true });
 
 // Public routes=For All
-userRouter.post('/login', verifyPassword, login); //done
+userRouter.post(
+  '/login',
+  loginValidation,
+  validationError,
+  verifyPassword,
+  login,
+); //done
 
 export default userRouter;

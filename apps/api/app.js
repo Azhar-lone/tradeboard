@@ -1,15 +1,14 @@
 //importing dependencies
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import 'dotenv/config';
+
+//importing Routers
 import userRouter from './src/routes/user.js';
 import { checkPrismaConnection } from './src/libs/connectdb.js';
 
-
-
-import 'dotenv/config';
-//importing Routers
-
 const app = express();
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +30,8 @@ app.use((req, res) => {
   }
 });
 const port = process.env.PORT | 6000;
+
+console.log(process.env.PORT);
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
   checkPrismaConnection();

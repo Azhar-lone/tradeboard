@@ -2,7 +2,7 @@ model User {
   id        String      @id @default(cuid())
   email     String      @unique
   password  String
-  name      String
+  userName      String
   role      String // admin, sales-rep, etc.
   companyId String
   company   Company     @relation(fields: [companyId], references: [id])
