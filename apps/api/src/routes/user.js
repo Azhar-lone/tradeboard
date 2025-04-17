@@ -1,9 +1,11 @@
 import express from 'express';
 
-import { login } from '../Controllers/user.js';
 import { verifyPassword } from '../middlewares/auth.js';
 import { validationError } from '../middlewares/validator.js';
 import { loginValidation } from '../validators/user.js';
+import { AddUser } from '../Controllers/user/admins.js';
+
+import { login } from '../Controllers/user/public.js';
 
 const userRouter = express.Router({ strict: true });
 
@@ -14,6 +16,8 @@ userRouter.post(
   validationError,
   verifyPassword,
   login,
-); //done
+);
 
+//admin routes
+userRouter.post('/admin/add', AddUser);
 export default userRouter;
