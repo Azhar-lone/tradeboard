@@ -15,7 +15,7 @@ export default function ProtectedRoute({
     if (!loading && !user) {
       router.push("/login");
     }
-  }, [loading, user]);
+  }, [loading, user, router]);
 
   if (loading || !user) return <p>Loading...</p>;
 

@@ -11,7 +11,7 @@ import { buttonVariants } from "../ui/button";
 import { useDevice } from "@/hooks/use-device";
 import { ScrollArea } from "@radix-ui/react-scroll-area"; // Make sure to import ScrollAreaRoot if needed
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Slider from "./Slider";
 import { categorizedLinks, secondlinks } from "./sidebar/sidebar-data";
 
@@ -19,13 +19,19 @@ const Header = () => {
   const { isOpen, setIsOpen } = useSidebar();
   const device = useDevice();
   const path = usePathname();
-  const btnvariant = [
-    "default",
-    "ghost",
-    "destructive",
-    "secondary",
-    "outline",
-  ] as const;
+  const btnvariant = useMemo(
+    () =>
+      [
+        "outline",
+        "ghost",
+        "default",
+        "link",
+        "destructive",
+        "secondary",
+      ] as const,
+    []
+  );
+
   type Variant = (typeof btnvariant)[number];
   const [logoVariant, setLogoVariant] = useState<Variant>("default");
 
@@ -38,11 +44,13 @@ const Header = () => {
   useEffect(() => {
     let index = 1;
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       setLogoVariant(btnvariant[index]);
       if (index < btnvariant.length - 1) index++;
       else index = 0;
     }, 3000);
+
+    return () => clearInterval(interval);
   }, [btnvariant]);
 
   return (
