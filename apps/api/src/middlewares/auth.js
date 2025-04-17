@@ -36,6 +36,28 @@ export function UserAuth(req, res, next) {
   }
 }
 
+export async function isAdmin(req, res, next) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: currentUserId },
+      select: {
+        role: true,
+      },
+    });
+
+    if (user.role !== 'admin')
+      return res.status(401).json({
+        msg: 'Not authorized',
+      });
+    return next();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: 'Authentication error you are not Admin',
+    });
+  }
+}
+
 // this function checks provided password is correct or not
 export async function verifyPassword(req, res, next) {
   try {
@@ -52,27 +74,20 @@ export async function verifyPassword(req, res, next) {
       },
     });
 
-    // If user is not found, return a 401 Unauthorized response
     if (!user) {
       return res.status(404).json({
         msg: 'User not found',
       });
     }
-    console.log('User :', user);
 
-    // Compare the provided password with the hashed password in the database
-    // const isMatched = await bcrypt.compare(password, user.password);
-    const isMatched = user.password === password;
+    const isMatched = await bcrypt.compare(password, user.password);
 
-    // If passwords don't match, return a 401 Unauthorized response
     if (!isMatched) {
       return res.status(401).json({
         msg: 'Incorrect Password',
       });
     }
-    //     only send userName and user id to next route
     user = {
-      userName: user.userName,
       id: user.id,
     };
 
