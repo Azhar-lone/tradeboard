@@ -48,6 +48,7 @@ export async function verifyPassword(req, res, next) {
       select: {
         password: true,
         userName: true,
+        id: true,
       },
     });
 
@@ -60,7 +61,8 @@ export async function verifyPassword(req, res, next) {
     console.log('User :', user);
 
     // Compare the provided password with the hashed password in the database
-    const isMatched = await bcrypt.compare(password, user.password);
+    // const isMatched = await bcrypt.compare(password, user.password);
+    const isMatched = user.password === password;
 
     // If passwords don't match, return a 401 Unauthorized response
     if (!isMatched) {

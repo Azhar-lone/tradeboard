@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon app.js",
+    "dev:studio": "concurrently \"npx nodemon app.js\" \"npx prisma studio\"",
     "start": "node app.js"
   },
   "prisma": {
@@ -30,6 +31,7 @@
     "prisma": "^6.6.0"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "nodemon": "^3.1.9"
   }
 }

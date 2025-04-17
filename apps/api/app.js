@@ -30,8 +30,6 @@ app.use((req, res) => {
   }
 });
 const port = process.env.PORT | 6000;
-
-console.log(process.env.PORT);
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
   checkPrismaConnection();

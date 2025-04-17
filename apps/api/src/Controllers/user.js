@@ -1,11 +1,9 @@
 import { createToken } from '../middlewares/auth.js';
 
-import { prisma } from '../libs/connectdb.js';
-
 export async function login(req, res) {
   try {
-    const token = createToken(req.user._id.toString());
-
+    const token = createToken(req.user.id.toString());
+    console.log('\nToken :', token);
     return res
       .cookie('login', token, {
         httpOnly: true,

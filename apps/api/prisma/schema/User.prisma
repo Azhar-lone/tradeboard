@@ -1,10 +1,10 @@
 model User {
   id        String      @id @default(cuid())
   email     String      @unique
-  password  String
-  userName      String
-  role      String // admin, sales-rep, etc.
-  companyId String
-  company   Company     @relation(fields: [companyId], references: [id])
+  password  String       
+  userName  String
+  role      String 
+  companyId String?
+  company   Company?     @relation(fields: [companyId], references: [id])
   DsrReport DsrReport[]
 }
