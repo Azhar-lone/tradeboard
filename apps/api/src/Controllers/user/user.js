@@ -2,8 +2,71 @@ import { prisma } from '../../libs/connectdb.js';
 import { suggestRelatedUsername } from './libs.js';
 import bcrypt from 'bcrypt';
 import { createToken } from '../../middlewares/auth.js';
+
+export async function login(req, res) {
+  try {
+    const token = createToken(req.user.id.toString());
+    return res
+      .cookie('login', token, {
+        httpOnly: true,
+        secure: true,
+      })
+      .status(200)
+      .json({
+        msg: 'user logged in successfully',
+      });
+  } catch (error) {
+    console.error('Login Error:', error);
+
+    return res.status(500).json({
+      msg: 'Internal server error occurred during login',
+    });
+  }
+}
+
+// Autherized Users
+export async function logout(req, res) {
+  try {
+    res
+      .cookie('login', '', {
+        httpOnly: true,
+        maxAge: 0,
+        expires: Date.now(),
+      })
+      .status(200)
+      .json({
+        msg: 'user logged out successfully',
+      });
+  } catch (error) {
+    res.status(500).json({
+      msg: 'internal server erorr',
+    });
+  }
+}
+export async function getUserInfo(req, res) {
+  try {
+  } catch (error) {
+    // Log the error and return a generic error response
+    console.error(error);
+    return res.status(500).json({
+      msg: 'Internal server error',
+    });
+  }
+}
+
+export async function updateUserInfo(req, res) {
+  try {
+  } catch (error) {
+    // Log the error and return a generic error response
+    console.error(error);
+    return res.status(500).json({
+      msg: 'Internal server error',
+    });
+  }
+}
+
 // AdminsOnly
-export async function AddUser(req, res) {
+export async function AddUsers(req, res) {
   try {
     // Destructure the required fields from the request body
     const { email, password, userName, role } = req.body;
@@ -86,21 +149,35 @@ export async function AddUser(req, res) {
   }
 }
 
-export async function logout(req, res) {
+export async function getUsers(req, res) {
   try {
-    res
-      .cookie('login', '', {
-        httpOnly: true,
-        maxAge: 0,
-        expires: Date.now(),
-      })
-      .status(200)
-      .json({
-        msg: 'user logged out successfully',
-      });
   } catch (error) {
-    res.status(500).json({
-      msg: 'internal server erorr',
+    // Log the error and return a generic error response
+    console.error(error);
+    return res.status(500).json({
+      msg: 'Internal server error',
+    });
+  }
+}
+
+export async function deleteUsers(req, res) {
+  try {
+  } catch (error) {
+    // Log the error and return a generic error response
+    console.error(error);
+    return res.status(500).json({
+      msg: 'Internal server error',
+    });
+  }
+}
+
+export async function updateUsers(req, res) {
+  try {
+  } catch (error) {
+    // Log the error and return a generic error response
+    console.error(error);
+    return res.status(500).json({
+      msg: 'Internal server error',
     });
   }
 }

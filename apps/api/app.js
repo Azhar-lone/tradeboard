@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 
 const baseurl = process.env.BASE_URL;
 
-app.use(baseurl +'user', userRouter);
+app.use(baseurl +'user/', userRouter);
 //404 page
 app.use((req, res) => {
   try {
