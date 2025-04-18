@@ -110,7 +110,7 @@ async function main() {
         email,
         userName: username,
         password: hashedPassword,
-        role: 'ADMIN',
+        role: 'SUPER_USER',
       },
       select: {
         password: false,
@@ -121,7 +121,7 @@ async function main() {
 
     console.log('\n✅ Superuser created successfully!\n');
     console.log(`   Email:    ${user.email}`);
-    console.log(`   User Name:    ${user.email}`);
+    console.log(`   User Name:    ${user.userName}`);
   } catch (error) {
     console.error('❌ An error occurred during superuser creation:');
     console.error(error);

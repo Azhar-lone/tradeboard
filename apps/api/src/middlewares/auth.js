@@ -36,7 +36,7 @@ export function UserAuth(req, res, next) {
   }
 }
 
-export async function isAdmin(req, res, next) {
+export async function isSuperUser(req, res, next) {
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.currentUserId },
@@ -45,7 +45,7 @@ export async function isAdmin(req, res, next) {
       },
     });
 
-    if (user.role !== 'ADMIN')
+    if (user.role !== 'SUPER_USER')
       return res.status(401).json({
         msg: 'Not authorized',
       });
