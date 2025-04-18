@@ -1,12 +1,20 @@
 model Invoice {
-  id         String   @id @default(cuid())
-  invoiceNo  String
-  invoiceDate DateTime
-  bultiNo    String
-  vehicleNo  String
+  id     Int         @id @default(autoincrement())
+  type   InvoiceType // CUSTOMER, SUPPLIER, RETURN
+  number String      @unique
+  date   DateTime    @default(now())
+  total  Float
 
-  companyId  String
-  company    Company  @relation(fields: [companyId], references: [id])
+  // Relationships
+  company   Company    @relation(fields: [companyId], references: [id])
+  companyId Int
+  movements Movement[]
+  ledger    Ledger?    @relation(fields: [ledgerId], references: [id])
+  ledgerId  String?
+}
 
-  invoiceItems InvoiceItem[]
+enum InvoiceType {
+  CUSTOMER
+  SUPPLIER
+  RETURN
 }

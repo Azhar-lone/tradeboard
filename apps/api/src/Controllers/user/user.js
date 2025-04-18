@@ -3,6 +3,16 @@ import { suggestRelatedUsername } from './libs.js';
 import bcrypt from 'bcrypt';
 import { createToken } from '../../middlewares/auth.js';
 
+const userSelect = {
+  id: true,
+  email: true,
+  userName: true,
+  role: true,
+  companyId: true,
+  company: true,
+  DsrReport: true,
+};
+
 export async function login(req, res) {
   try {
     const token = createToken(req.user.id.toString());
@@ -24,16 +34,6 @@ export async function login(req, res) {
   }
 }
 
-const userSelect = {
-  id: true,
-  email: true,
-  userName: true,
-  role: true,
-  companyId: true,
-  company: true,
-  DsrReport: true,
-};
-
 // Autherized Users
 export async function logout(req, res) {
   try {
@@ -53,6 +53,7 @@ export async function logout(req, res) {
     });
   }
 }
+
 export async function getUserInfo(req, res) {
   try {
     const user = await prisma.user.findFirst({
@@ -94,7 +95,7 @@ export async function updateUserInfo(req, res) {
 }
 
 // AdminsOnly
-export async function AddUsers(req, res) {
+export async function AddUser(req, res) {
   try {
     // Destructure the required fields from the request body
     const { email, password, userName, role } = req.body;
@@ -214,8 +215,27 @@ export async function getUsers(req, res) {
 
 export async function deleteUsers(req, res) {
   try {
+    const { ids } = req.body;
+
+    const deletedUsers = await prisma.user.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    // Check if any users were deleted
+    if (deletedUsers.count === 0) {
+      return res.status(404).json({
+        msg: 'No users found with the provided IDs',
+      });
+    }
+
+    return res.status(200).json({
+      msg: `${deletedUsers.count} user(s) deleted successfully`,
+    });
   } catch (error) {
-    // Log the error and return a generic error response
     console.error(error);
     return res.status(500).json({
       msg: 'Internal server error',

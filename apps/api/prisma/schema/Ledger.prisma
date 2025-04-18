@@ -1,10 +1,16 @@
 model Ledger {
-  id         String   @id @default(cuid())
-  type       String   // credit / debit
-  amount     Float
-  createdAt  DateTime @default(now())
+  id          String     @id @default(cuid())
+  type        LedgerType
+  amount      Float
+  createdAt   DateTime   @default(now())
   description String?
 
-  companyId  String
-  company    Company  @relation(fields: [companyId], references: [id])
+  companyId Int
+  company   Company   @relation(fields: [companyId], references: [id])
+  Invoice   Invoice[]
+}
+
+enum LedgerType {
+  CREDIT
+  DEBIT
 }
