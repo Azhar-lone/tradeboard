@@ -214,8 +214,27 @@ export async function getUsers(req, res) {
 
 export async function deleteUsers(req, res) {
   try {
+    const { ids } = req.body;
+
+    const deletedUsers = await prisma.user.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    // Check if any users were deleted
+    if (deletedUsers.count === 0) {
+      return res.status(404).json({
+        msg: 'No users found with the provided IDs',
+      });
+    }
+
+    return res.status(200).json({
+      msg: `${deletedUsers.count} user(s) deleted successfully`,
+    });
   } catch (error) {
-    // Log the error and return a generic error response
     console.error(error);
     return res.status(500).json({
       msg: 'Internal server error',

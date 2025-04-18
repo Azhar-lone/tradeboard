@@ -56,7 +56,7 @@ export const signUpValidation = [
       }
       return true;
     }),
-  
+
   // password
   body('password')
     .exists()
@@ -94,8 +94,29 @@ export const signUpValidation = [
     .escape(),
 
   // role
-  body("role")
+  body('role')
     .optional()
     .isIn(['USER', 'ADMIN', 'SELLER'])
-    .withMessage('Invalid role. Allowed roles are USER, ADMIN, SELLER')
+    .withMessage('Invalid role. Allowed roles are USER, ADMIN, SELLER'),
 ];
+
+export const validateIds = (isRequired) => {
+  return [
+    check('ids')
+      .optional({ checkFalsy: true }) // Allows `ids` to be optional by default
+      .isArray()
+      .withMessage('ids must be an array')
+      .custom((value, { req }) => {
+        if (isRequired && (!value || value.length === 0)) {
+          throw new Error('ids are required for delete operation');
+        }
+        return true;
+      }),
+    check('ids.*')
+      .optional() // If `ids` exists, this validates each element
+      .isString()
+      .withMessage('Each id must be a string')
+      .matches(/^c[a-z0-9]{24,}$/)
+      .withMessage('Each id must be a valid CUID'),
+  ];
+};
