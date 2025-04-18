@@ -24,6 +24,16 @@ export async function login(req, res) {
   }
 }
 
+const userSelect = {
+  id: true,
+  email: true,
+  userName: true,
+  role: true,
+  companyId: true,
+  company: true,
+  DsrReport: true,
+};
+
 // Autherized Users
 export async function logout(req, res) {
   try {
@@ -45,8 +55,26 @@ export async function logout(req, res) {
 }
 export async function getUserInfo(req, res) {
   try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: req.currentUserid,
+      },
+      select: {
+        ...userSelect,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        msg: 'Failed to fetch user',
+      });
+    }
+
+    return res.status(200).json({
+      msg: 'User info fetched successfully',
+      user,
+    });
   } catch (error) {
-    // Log the error and return a generic error response
     console.error(error);
     return res.status(500).json({
       msg: 'Internal server error',
@@ -151,8 +179,32 @@ export async function AddUsers(req, res) {
 
 export async function getUsers(req, res) {
   try {
+    const { ids } = req.body;
+
+    let users = [];
+
+    if (ids && ids.length > 0) {
+      users = await prisma.user.findMany({
+        where: {
+          id: { in: ids },
+        },
+        select: {
+          ...userSelect,
+        },
+      });
+    } else {
+      users = await prisma.user.findMany({
+        select: {
+          ...userSelect,
+        },
+      });
+    }
+
+    return res.status(200).json({
+      msg: 'Users fetched successfully',
+      users,
+    });
   } catch (error) {
-    // Log the error and return a generic error response
     console.error(error);
     return res.status(500).json({
       msg: 'Internal server error',
