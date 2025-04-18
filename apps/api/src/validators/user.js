@@ -63,7 +63,7 @@ export const signUpValidation = [
     .withMessage('password is required')
     .trim()
     .isStrongPassword()
-    .withMessage('not A strong password')
+    .withMessage('not a strong password')
     .isLength({ max: 16, min: 8 })
     .withMessage('not a valid length')
     .escape(),
@@ -84,7 +84,7 @@ export const signUpValidation = [
   // user name
   body('userName')
     .exists()
-    .withMessage('userName is required')
+    .withMessage('user name is required')
     .isString()
     .withMessage('not a valid string')
     .isLength({ max: 16 })

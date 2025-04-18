@@ -1,19 +1,12 @@
 import { prisma } from '../../libs/connectdb.js';
-
+import { suggestRelatedUsername } from './libs.js';
+import bcrypt from 'bcrypt';
+import { createToken } from '../../middlewares/auth.js';
 // AdminsOnly
 export async function AddUser(req, res) {
   try {
-  } catch (error) {
-    return res.status(500).json({
-      msg: 'Internal server error occurred during login',
-    });
-  }
-}
-
-export default async function signUp(req, res) {
-  try {
     // Destructure the required fields from the request body
-    const { email, password, userName } = req.body;
+    const { email, password, userName, role } = req.body;
 
     const existingUser = await prisma.user.findFirst({
       where: {
@@ -53,6 +46,7 @@ export default async function signUp(req, res) {
       data: {
         email,
         password: hashedPassword,
+        userName,
         ...(role && { role }),
       },
       select: {
