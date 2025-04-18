@@ -11,7 +11,5 @@ export const loginValidation = [
     .exists()
     .withMessage('password is required')
     .trim()
-    .isStrongPassword()
-    .withMessage('Incorrect Passord')
     .escape(),
 ];
