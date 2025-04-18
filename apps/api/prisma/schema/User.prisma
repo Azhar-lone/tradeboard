@@ -1,10 +1,16 @@
+enum Role {
+  USER
+  ADMIN
+  SELLER
+}
+
 model User {
   id        String      @id @default(cuid())
   email     String      @unique
-  password  String       
-  userName  String
-  role      String 
+  password  String      
+  userName  String      @unique
+  role      Role        @default(USER)
   companyId String?
-  company   Company?     @relation(fields: [companyId], references: [id])
+  company   Company?    @relation(fields: [companyId], references: [id])
   DsrReport DsrReport[]
 }

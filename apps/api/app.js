@@ -16,7 +16,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('', userRouter);
+const baseurl = process.env.BASE_URL;
+
+app.use(baseurl +'user', userRouter);
 //404 page
 app.use((req, res) => {
   try {
