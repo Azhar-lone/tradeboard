@@ -1,8 +1,0 @@
-model DsrReport {
-    id         String   @id @default(cuid())
-    userId     String
-    reportDate DateTime
-    salesTotal Float
-
-    user User @relation(fields: [userId], references: [id])
-}

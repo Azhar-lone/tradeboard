@@ -3,6 +3,16 @@ import { suggestRelatedUsername } from './libs.js';
 import bcrypt from 'bcrypt';
 import { createToken } from '../../middlewares/auth.js';
 
+const userSelect = {
+  id: true,
+  email: true,
+  userName: true,
+  role: true,
+  companyId: true,
+  company: true,
+  DsrReport: true,
+};
+
 export async function login(req, res) {
   try {
     const token = createToken(req.user.id.toString());
@@ -24,16 +34,6 @@ export async function login(req, res) {
   }
 }
 
-const userSelect = {
-  id: true,
-  email: true,
-  userName: true,
-  role: true,
-  companyId: true,
-  company: true,
-  DsrReport: true,
-};
-
 // Autherized Users
 export async function logout(req, res) {
   try {
@@ -53,6 +53,7 @@ export async function logout(req, res) {
     });
   }
 }
+
 export async function getUserInfo(req, res) {
   try {
     const user = await prisma.user.findFirst({
@@ -94,7 +95,7 @@ export async function updateUserInfo(req, res) {
 }
 
 // AdminsOnly
-export async function AddUsers(req, res) {
+export async function AddUser(req, res) {
   try {
     // Destructure the required fields from the request body
     const { email, password, userName, role } = req.body;

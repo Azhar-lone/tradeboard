@@ -1,9 +1,0 @@
-model InvoiceItem {
-  id         String   @id @default(cuid())
-  quantity   Int
-  itemId     String
-  invoiceId  String
-
-  item       Item     @relation(fields: [itemId], references: [id])
-  invoice    Invoice  @relation(fields: [invoiceId], references: [id])
-}

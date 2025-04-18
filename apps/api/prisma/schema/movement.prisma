@@ -1,0 +1,30 @@
+model Movement {
+  id          Int           @id @default(autoincrement())
+  type        MovementType  // RECEIVE, SALE, DAMAGE, EXPIRE, RETURN, VAN_LOAD
+  quantity    Int
+  price       Float?        // Nullable for non-sales movements
+  date        DateTime      @default(now())
+  
+  // Relationships
+  item        Item          @relation(fields: [itemId], references: [id])
+  itemId      Int
+  company     Company       @relation(fields: [companyId], references: [id])
+  companyId   Int
+  invoice     Invoice?      @relation(fields: [invoiceId], references: [id])
+  invoiceId   Int?
+  
+  // Vehicle/DSR Info (for VAN_LOAD type)
+  vehicleNo   String?
+  driver      String?
+}
+
+
+
+enum MovementType {
+  RECEIVE     // New stock
+  SALE        // Customer sale
+  DAMAGE      // Damaged stock
+  EXPIRE      // Expired stock
+  RETURN      // Customer return
+  VAN_LOAD    // Van loading
+}

@@ -1,9 +1,0 @@
-model SaleItem {
-  id        String   @id @default(cuid())
-  quantity  Int
-  itemId    String
-  saleId    String
-
-  item      Item     @relation(fields: [itemId], references: [id])
-  sale      Sale     @relation(fields: [saleId], references: [id])
-}

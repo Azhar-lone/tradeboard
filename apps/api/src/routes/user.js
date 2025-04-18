@@ -14,7 +14,7 @@ import {
   getUserInfo,
   updateUserInfo,
   // admin
-  AddUsers,
+  AddUser,
   getUsers,
   deleteUsers,
   updateUsers,
@@ -37,7 +37,7 @@ userRouter.put('/', updateUserInfo);
 
 userRouter.use(isAdmin);
 //admin routes
-userRouter.post('/admin', signUpValidation, validationError, AddUsers);
+userRouter.post('/admin', signUpValidation, validationError, AddUser);
 userRouter.get('/admin', validateIds(false), validationError, getUsers);
 userRouter.delete('/admin', validateIds(true), validationError, deleteUsers);
 userRouter.put('/admin', updateUsers);

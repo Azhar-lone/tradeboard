@@ -1,13 +1,9 @@
 model Company {
-  id        String   @id @default(cuid())
+  id        Int        @id @default(autoincrement())
   name      String
-  createdAt DateTime @default(now())
-
-  users    User[]
-  items    Item[]
-  invoices Invoice[]
-  ledgers  Ledger[]
-  stocks   Stock[]
-  sales    Sale[]
-  VanLoad  VanLoad[]
+  users     User[]
+  items     Item[]
+  movements Movement[]
+  invoices  Invoice[]
+  ledgers   Ledger[]
 }
