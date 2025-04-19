@@ -27,8 +27,14 @@ export const fetchUser = createAsyncThunk(
       if (!res.ok) throw new Error("Failed to fetch user");
       const data = await res.json();
       return data;
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        return thunkAPI.rejectWithValue(err.message);
+      } else {
+        console.error("An unknown error occurred");
+        return thunkAPI.rejectWithValue("An unknown error occurred");
+      }
     }
   }
 );
