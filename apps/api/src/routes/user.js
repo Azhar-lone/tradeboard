@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { verifyPassword, UserAuth, isAdmin } from '../middlewares/auth.js';
+import { verifyPassword, UserAuth, isSuperUser } from '../middlewares/auth.js';
 import { validationError } from '../middlewares/validator.js';
 import {
   loginValidation,
@@ -19,6 +19,9 @@ import {
   deleteUsers,
   updateUsers,
 } from '../Controllers/user/user.js';
+
+
+
 const userRouter = express.Router({ strict: true });
 
 // Public routes=For All
@@ -31,11 +34,11 @@ userRouter.post(
 );
 
 userRouter.use(UserAuth);
-userRouter.get('/logout', logout);
+userRouter.post('/logout', logout);
 userRouter.get('/', getUserInfo);
 userRouter.put('/', updateUserInfo);
 
-userRouter.use(isAdmin);
+userRouter.use(isSuperUser);
 //admin routes
 userRouter.post('/admin', signUpValidation, validationError, AddUser);
 userRouter.get('/admin', validateIds(false), validationError, getUsers);

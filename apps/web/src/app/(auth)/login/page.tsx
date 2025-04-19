@@ -54,11 +54,12 @@ const Login = () => {
         const errorData = await res.json();
         throw new Error(errorData.message || "Login failed");
       }
-      const data = await res.json();
 
       router.push(routes.dashboard);
-    } catch (error: any) {
-      console.error("Login error:", error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Login error:", error.message);
+      }
       // show toast or form error if needed
       form.setError("email", { message: "Invalid credentials" });
     }

@@ -96,8 +96,10 @@ export const signUpValidation = [
   // role
   body('role')
     .optional()
-    .isIn(['USER', 'ADMIN', 'SELLER'])
-    .withMessage('Invalid role. Allowed roles are USER, ADMIN, SELLER'),
+    .isIn(['SUPER_USER', 'COMPANY_ADMIN', 'MANAGER','STAFF'])
+    .withMessage(
+      'Invalid role. Allowed roles are   SUPER_USER,COMPANY_ADMIN,MANAGER,STAFF',
+    ),
 ];
 
 export const validateIds = (isRequired) => {

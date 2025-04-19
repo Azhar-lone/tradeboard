@@ -10,7 +10,6 @@ const userSelect = {
   role: true,
   companyId: true,
   company: true,
-  DsrReport: true,
 };
 
 export async function login(req, res) {
