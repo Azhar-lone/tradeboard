@@ -41,7 +41,12 @@ const Login = () => {
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     try {
-      const res = await fetch("/api/login", {
+      interface Response {
+        msg: string;
+      }
+
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+      const res = await fetch(`${backendUrl}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,10 +54,19 @@ const Login = () => {
         credentials: "include",
         body: JSON.stringify(values),
       });
+      
+      console.log("\nresponse :", res, "\n");
+      const json: Response = await res.json();
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Login failed");
+      if (res.status === 404) {
+        form.setError("email", { message: json.msg || "Invalid Email" });
+        return;
+      }
+      if (res.status === 401) {
+        form.setError("password", {
+          message: json.msg || "Invalid credentials",
+        });
+        return;
       }
 
       router.push(routes.dashboard);
@@ -60,8 +74,7 @@ const Login = () => {
       if (error instanceof Error) {
         console.error("Login error:", error.message);
       }
-      // show toast or form error if needed
-      form.setError("email", { message: "Invalid credentials" });
+      form.setError("root", { message: "Something went wrong" });
     }
   }
 
