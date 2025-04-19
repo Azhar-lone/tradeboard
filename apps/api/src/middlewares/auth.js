@@ -63,6 +63,7 @@ export async function verifyPassword(req, res, next) {
   try {
     // Extract email and password from the request body
     const { email, password } = req.body;
+    console.log("\nemail :",email,"\nPassword ",password)
 
     // let user = await userModel.findOne({ email }).select("password userName");
     let user = await prisma.user.findUnique({
@@ -73,10 +74,10 @@ export async function verifyPassword(req, res, next) {
         id: true,
       },
     });
-
+console.log(user)
     if (!user) {
       return res.status(404).json({
-        msg: 'User not found',
+        msg: 'User not found with provided email',
       });
     }
 

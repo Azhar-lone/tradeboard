@@ -3,11 +3,18 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import morgan from 'morgan';
+import cors from "cors"
 //importing Routers
 import userRouter from './src/routes/user.js';
 import { checkPrismaConnection } from './src/libs/connectdb.js';
 
 const app = express();
+
+
+app.use(cors({
+  credentials: true,
+  origin: process.env.FrontEndUrl,
+}))
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
