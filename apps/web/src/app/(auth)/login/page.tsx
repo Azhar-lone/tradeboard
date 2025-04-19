@@ -54,7 +54,7 @@ const Login = () => {
         credentials: "include",
         body: JSON.stringify(values),
       });
-      
+
       console.log("\nresponse :", res, "\n");
       const json: Response = await res.json();
 
@@ -68,7 +68,7 @@ const Login = () => {
         });
         return;
       }
-
+      localStorage.setItem("login", "true");
       router.push(routes.dashboard);
     } catch (error) {
       if (error instanceof Error) {
