@@ -4,14 +4,16 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { routes } from "@/constants/routes";
-import Hint from "@/components/myUi/Hint";
+import { backendRoutes, routes } from "@/constants/routes";
 
 // Icons
 import { Eye, EyeOff } from "lucide-react";
 
 // importing components
 import { Button } from "@/components/ui/button";
+import Hint from "@/components/myUi/Hint";
+import { toast } from "sonner";
+
 import {
   Form,
   FormControl,
@@ -45,8 +47,7 @@ const Login = () => {
         msg: string;
       }
 
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const res = await fetch(`${backendUrl}/user/login`, {
+      const res = await fetch(backendRoutes.login, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,10 +55,7 @@ const Login = () => {
         credentials: "include",
         body: JSON.stringify(values),
       });
-
-      console.log("\nresponse :", res, "\n");
       const json: Response = await res.json();
-
       if (res.status === 404) {
         form.setError("email", { message: json.msg || "Invalid Email" });
         return;
@@ -68,7 +66,9 @@ const Login = () => {
         });
         return;
       }
-      localStorage.setItem("login", "true");
+      toast(json.msg, {
+        description: "redirecting to dashboard",
+      });
       router.push(routes.dashboard);
     } catch (error) {
       if (error instanceof Error) {
@@ -156,10 +156,6 @@ const Login = () => {
           </div>
         </form>
       </Form>
-
-      <Button variant="link" onClick={() => router.push("/dashboard")}>
-        go to Dashboard (for testing only)
-      </Button>
     </div>
   );
 };
