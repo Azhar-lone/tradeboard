@@ -19,9 +19,19 @@ import { LogOut, Settings } from "lucide-react";
 import { routes, backendRoutes } from "@/constants/routes";
 import { toast } from "sonner";
 // context
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "@/lib/store/features/user/userSlice";
+import type { RootState, AppDispatch } from "@/lib/store/store";
 
 const ProfileButton: React.FC<{ className?: string }> = ({ className }) => {
   const router = useRouter();
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { user } = useSelector((state: RootState) => state.user);
+  console.log(user);
+  React.useEffect(() => {
+    if (user === null) dispatch(fetchUser());
+  }, [dispatch, user]);
 
   async function Logout() {
     try {
@@ -53,8 +63,10 @@ const ProfileButton: React.FC<{ className?: string }> = ({ className }) => {
     <DropdownMenu>
       <DropdownMenuTrigger className={cn(className)}>
         <Avatar>
-          <AvatarFallback>A</AvatarFallback>
-          <AvatarImage src={"/profile.jpg"} />
+          <AvatarFallback>
+            {user?.userName?.charAt(0).toUpperCase()}
+          </AvatarFallback>
+          <AvatarImage src={user?.profileImage} />
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-72 ">
@@ -63,12 +75,14 @@ const ProfileButton: React.FC<{ className?: string }> = ({ className }) => {
           onClick={() => router.push("/site/profile")}
         >
           <Avatar>
-            <AvatarFallback>A</AvatarFallback>
-            <AvatarImage src={"/profile.jpg"} />
+            <AvatarFallback>
+              {user?.userName?.charAt(0).toUpperCase()}
+            </AvatarFallback>
+            <AvatarImage src={user?.profileImage} />
           </Avatar>
           <div className="flex flex-col">
-            <h1 className="text-lg">Azhar Lone</h1>
-            <h2 className="text-foreground/60">Admin</h2>
+            <h1 className="text-lg">{user?.userName}</h1>
+            <h2 className="text-foreground/60">{user?.role}</h2>
           </div>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

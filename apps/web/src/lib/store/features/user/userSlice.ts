@@ -1,3 +1,4 @@
+import { backendRoutes } from "@/constants/routes";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface UserState {
@@ -6,6 +7,7 @@ interface UserState {
     userName: string;
     email: string;
     role: string;
+    profileImage: string;
   };
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
@@ -21,12 +23,22 @@ export const fetchUser = createAsyncThunk(
   "user/fetchUser",
   async (_, thunkAPI) => {
     try {
-      const res = await fetch("/api/user", {
+      interface Data {
+        msg: string;
+        user: {
+          id: string;
+          userName: string;
+          email: string;
+          role: string;
+          profileImage: string;
+        };
+      }
+      const res = await fetch(backendRoutes.getUserInfo, {
         credentials: "include",
       });
       if (!res.ok) throw new Error("Failed to fetch user");
       const data = await res.json();
-      return data;
+      return data.user;
     } catch (err) {
       if (err instanceof Error) {
         console.error(err.message);
