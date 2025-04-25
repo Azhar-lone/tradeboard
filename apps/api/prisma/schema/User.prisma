@@ -6,12 +6,14 @@ enum Role {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  password     String
-  userName     String   @unique
-  profileImage String?  @default("/profile.png")
-  role         Role     @default(STAFF)
-  company      Company? @relation(fields: [companyId], references: [id])
-  companyId    Int?
+  id             String    @id @default(cuid())
+  email          String    @unique
+  password       String
+  userName       String    @unique
+  FirstName      String
+  lastName       String
+  profileImage   String?   @default("/userProfile.jpg")
+  role           Role      @default(STAFF)
+  ownedCompanies Company[] @relation("CompanyOwners")
+  companies      Company[] @relation("CompanyUsers")
 }

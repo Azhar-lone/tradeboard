@@ -4,9 +4,12 @@ import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import morgan from 'morgan';
 import cors from "cors"
+import { checkPrismaConnection } from './src/libs/connectdb.js';
+
 //importing Routers
 import userRouter from './src/routes/user.js';
-import { checkPrismaConnection } from './src/libs/connectdb.js';
+import companyRouter from './src/routes/company.js';
+
 
 const app = express();
 
@@ -25,6 +28,9 @@ app.use(cookieParser());
 const baseurl = process.env.BASE_URL;
 
 app.use(baseurl + '/user', userRouter);
+app.use(baseurl + '/company', companyRouter);
+
+
 
 //404 page
 app.use((req, res) => {
