@@ -1,7 +1,8 @@
 model Company {
   id        Int        @id @default(autoincrement())
   name      String
-  users     User[]
+  users     User[]     @relation("CompanyUsers")
+  owners    User[]     @relation("CompanyOwners")
   items     Item[]
   movements Movement[]
   invoices  Invoice[]

@@ -58,12 +58,34 @@ export async function isSuperUser(req, res, next) {
   }
 }
 
+export async function isCompanyAdmin(req, res, next) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.currentUserId },
+      select: {
+        role: true,
+      },
+    });
+
+    if (user.role !== 'COMPANY_ADMIN')
+      return res.status(401).json({
+        msg: 'Not authorized',
+      });
+    return next();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: 'Authentication error you are not Admin',
+    });
+  }
+}
+
 // this function checks provided password is correct or not
 export async function verifyPassword(req, res, next) {
   try {
     // Extract email and password from the request body
     const { email, password } = req.body;
-    console.log("\nemail :",email,"\nPassword ",password)
+    console.log('\nemail :', email, '\nPassword ', password);
 
     // let user = await userModel.findOne({ email }).select("password userName");
     let user = await prisma.user.findUnique({
@@ -74,7 +96,7 @@ export async function verifyPassword(req, res, next) {
         id: true,
       },
     });
-console.log(user)
+    console.log(user);
     if (!user) {
       return res.status(404).json({
         msg: 'User not found with provided email',
